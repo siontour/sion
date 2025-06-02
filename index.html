@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sion Tours - Discover Sri Lanka's Hidden Gems</title>
+    
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    
+    
     <style>
         * {
             margin: 0;
@@ -416,6 +421,10 @@
 <body>
     <!-- Header -->
     <header>
+
+        
+
+
         <nav>
             <div class="logo">Sion Tours</div>
             <ul class="nav-links">
@@ -508,7 +517,7 @@
         <div class="container">
             <div class="booking-container fade-in">
                 <h2>Book Your Sri Lankan Adventure</h2>
-                <form id="bookingForm">
+                <form id="bookingForm" action="https://formspree.io/f/xpwrzdog" method="POST">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Full Name *</label>
@@ -580,6 +589,8 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">Book My Adventure</button>
+                    <p id="form-response" style="margin-top: 1rem; color: green;"></p>
+
                 </form>
             </div>
         </div>
@@ -609,6 +620,33 @@
     </footer>
 
     <script>
+// formspace
+  const form = document.getElementById('bookingForm');
+  const responseMsg = document.getElementById('form-response');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      responseMsg.textContent = "✅ Thank you! Your booking has been submitted.";
+      form.reset();
+    } else {
+      responseMsg.textContent = "❌ Oops! Something went wrong. Please try again.";
+      responseMsg.style.color = 'red';
+    }
+  });
+
+
+
         // Slideshow functionality
         let slideIndex = 1;
         const slides = document.querySelectorAll('.slide');
